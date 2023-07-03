@@ -46,31 +46,29 @@ export default function Vote() {
   };
 
   return (
-    <div>
-      <img className="mt-10" src="images/logo.png" alt="none" />
-      <div className="text-primary flex justify-center items-center text-4xl flex-col bg-gray rounded-3xl p-10 my-10">
-        {title}
-        {datas.map((data, index) => {
-          return (
-            <div key={`outer${index}`} className="w-2/3">
-              <OptionTitle key={`optionTitle${index}`} title={data[0]} />
-              <div
-                key={`container${index}`}
-                className="border-2 border-lgray rounded-3xl bg-input text-lgray hover:border-outlined hover:text-primary hover:bg-inputbg"
-              >
-                <div key={`optionContainer${index}`} className="m-5 border-3 flex justify-center">
-                  {data[1].map((option, num) => {
-                    return <SelectOption key={`option${num}`} option={option} title={data[0]} />;
-                  })}
-                </div>
+
+    <div className="text-primary flex justify-center items-center text-4xl flex-col bg-gray rounded-3xl p-10 my-10 font-bold">
+      {title}
+      {datas.map((data, index) => {
+        return (
+          <div key={`outer${index}`} className="w-2/3">
+            <OptionTitle key={`optionTitle${index}`} title={data[0]} />
+            <div
+              key={`container${index}`}
+              className="border-2 border-lgray rounded-xl bg-input text-lgray hover:border-outlined hover:text-primary hover:bg-inputbg"
+            >
+              <div key={`optionContainer${index}`} className="p-5 border-3 flex justify-center">
+                {data[1].map((option, num) => {
+                  return <SelectOption key={`option${num}`} option={option} title={data[0]} />;
+                })}
               </div>
             </div>
-          );
-        })}
-        <button className="text-2xl text-black font-extrabold  mt-20 rounded-3xl px-10 py-5 bg-gradient-to-r  from-[#41FF76] to-[#94FF41]" onClick={onSelected}>
-          선택 완료
-        </button>
-      </div>
+          </div>
+        );
+      })}
+      <button className="text-2xl text-black font-extrabold  mt-20 rounded-xl px-10 py-5 bg-gradient-to-r  from-[#41FF76] to-[#94FF41]" onClick={onSelected}>
+        선택 완료
+      </button>
     </div>
   );
 }

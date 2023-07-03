@@ -13,7 +13,7 @@ export default function Main() {
 
         <div className="choose_container">
           <div className="pm_enroll">
-            <TfiWrite className="icon"/>
+            <TfiWrite className="icon" />
             <div className="choice-title">프로젝트팀 등록하기</div>
             <div className="choice_expl">프로젝트를 등록 후 팀원에게 알려주세요</div>
           </div>
@@ -34,7 +34,7 @@ export default function Main() {
             display: flex;
             align-items: center;
             justify-content: center;
-            height: 100vh;
+            height: 600px;
           }
 
           .box {
