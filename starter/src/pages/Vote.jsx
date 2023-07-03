@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import api from "../apis/axios";
 
 export default function Vote() {
@@ -16,10 +16,17 @@ export default function Vote() {
     ["Editor", ["intelliJ", "vscode", "eclipse", "기타"]],
     ["Clouding", ["aws", "googleCloud", "naverCloud", "기타"]],
   ];
-
-  const temp = "ㄹ";
-  const title = temp === "frontend" ? "FrontEnd" : "BackEnd";
-  const datas = temp === "frontend" ? frontDatas : backDatas;
+  const [user, setUser] = useState("");
+  useEffect(() => {
+    api
+      .get("/user/part")
+      .then((res) => console.log(res))
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+  const title = user === "frontend" ? "FrontEnd" : "BackEnd";
+  const datas = user === "frontend" ? frontDatas : backDatas;
   const sendDatas = [];
   for (let i = 0; i < datas.length; i++) {
     sendDatas.push([datas[i][0], ""]);
@@ -48,7 +55,7 @@ export default function Vote() {
 
   return (
     <div>
-      <img className="mt-10" src="images/logo.png" alt="none" />
+      <img className="mt-10" src="/images/logo.png" alt="none" />
       <div className="text-primary flex justify-center items-center text-4xl flex-col bg-gray rounded-3xl p-10 my-10">
         {title}
         {datas.map((data, index) => {
