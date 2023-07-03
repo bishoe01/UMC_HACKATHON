@@ -12,11 +12,11 @@ export default function Main() {
         </div>
 
         <div className="choose_container">
-          <div className="pm_enroll">
-            <TfiWrite className="icon" />
-            <div className="choice-title">프로젝트팀 등록하기</div>
-            <div className="choice_expl">프로젝트를 등록 후 팀원에게 알려주세요</div>
-          </div>
+          <Link to="/Register" className="pm_enroll">
+            <TfiWrite className="icon"/>
+                <div className="choice-title">프로젝트팀 등록하기</div>
+                <div className="choice_expl">프로젝트를 등록 후 팀원에게 알려주세요</div>
+           </Link>
           <Link to="/Home" className="participate">
             <IoEarthOutline className="icon" />
             <div className="choice-title">프로젝트팀 참여하기</div>
@@ -55,6 +55,7 @@ export default function Main() {
             color: white;
             font-size: 27px;
             text-align: center;
+            font-weight: 700;
           }
 
           .choose_container {

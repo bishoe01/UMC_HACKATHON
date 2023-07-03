@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import api from "../apis/axios";
 
 export default function Vote() {
   const frontDatas = [
@@ -15,10 +16,17 @@ export default function Vote() {
     ["Editor", ["intelliJ", "vscode", "eclipse", "기타"]],
     ["Clouding", ["aws", "googleCloud", "naverCloud", "기타"]],
   ];
-
-  const temp = "ㄹ";
-  const title = temp === "frontend" ? "FrontEnd" : "BackEnd";
-  const datas = temp === "frontend" ? frontDatas : backDatas;
+  const [user, setUser] = useState("");
+  useEffect(() => {
+    api
+      .get("/user/part")
+      .then((res) => console.log(res))
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+  const title = user === "frontend" ? "FrontEnd" : "BackEnd";
+  const datas = user === "frontend" ? frontDatas : backDatas;
   const sendDatas = [];
   for (let i = 0; i < datas.length; i++) {
     sendDatas.push([datas[i][0], ""]);
@@ -45,22 +53,24 @@ export default function Vote() {
     );
   };
 
-  return (
-
-    <div className="text-primary flex justify-center items-center text-4xl flex-col bg-gray rounded-3xl p-10 my-10 font-bold">
-      {title}
-      {datas.map((data, index) => {
-        return (
-          <div key={`outer${index}`} className="w-2/3">
-            <OptionTitle key={`optionTitle${index}`} title={data[0]} />
-            <div
-              key={`container${index}`}
-              className="border-2 border-lgray rounded-xl bg-input text-lgray hover:border-outlined hover:text-primary hover:bg-inputbg"
-            >
-              <div key={`optionContainer${index}`} className="p-5 border-3 flex justify-center">
-                {data[1].map((option, num) => {
-                  return <SelectOption key={`option${num}`} option={option} title={data[0]} />;
-                })}
+  return  (
+    <div>
+      <img className="mt-10" src="/images/logo.png" alt="none" />
+      <div className="text-primary flex justify-center items-center text-4xl flex-col bg-gray rounded-3xl p-10 my-10">
+        {title}
+        {datas.map((data, index) => {
+          return (
+            <div key={`outer${index}`} className="w-2/3">
+              <OptionTitle key={`optionTitle${index}`} title={data[0]} />
+              <div
+                key={`container${index}`}
+                className="border-2 border-lgray rounded-3xl bg-input text-lgray hover:border-outlined hover:text-primary hover:bg-inputbg"
+              >
+                <div key={`optionContainer${index}`} className="m-5 border-3 flex justify-center">
+                  {data[1].map((option, num) => {
+                    return <SelectOption key={`option${num}`} option={option} title={data[0]} />;
+                  })}
+                </div>
               </div>
             </div>
           </div>
