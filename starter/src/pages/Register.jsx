@@ -91,6 +91,7 @@ const Register = () => {
     const placeHolderList = ['팀이름을 입력해주세요', '한줄 소개를 입력해주세요', '입장하기 위한 비밀번호를 입력해주세요', 'https://www.notion.so/...', 'https://www.notion.so/...', 'https://www.notion.so/...', 'https://www.notion.so/...', 'https://www.notion.so/...']
     return(
         <div>
+            <img className="mt-10" src="/images/logo.png" alt="none" />
             <BgDiv>
                 <Label style={{marginTop:"100px", fontSize: "40px"}}>프로젝트 팀 등록</Label>
                 

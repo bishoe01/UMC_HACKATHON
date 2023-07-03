@@ -1,5 +1,6 @@
 import React from "react";
 import api from "../apis/axios";
+import { useNavigate } from "react-router-dom";
 
 export default function Vote() {
   const frontDatas = [
@@ -16,10 +17,10 @@ export default function Vote() {
     ["Editor", ["intelliJ", "vscode", "eclipse", "기타"]],
     ["Clouding", ["aws", "googleCloud", "naverCloud", "기타"]],
   ];
-
-  const temp = "ㄹ";
-  const title = temp === "frontend" ? "FrontEnd" : "BackEnd";
-  const datas = temp === "frontend" ? frontDatas : backDatas;
+  const user = sessionStorage.getItem("part");
+  const title = user === "front" ? "FrontEnd" : "BackEnd";
+  const datas = user === "front" ? frontDatas : backDatas;
+  const navigate = useNavigate();
   const sendDatas = [];
   for (let i = 0; i < datas.length; i++) {
     sendDatas.push([datas[i][0], ""]);
@@ -29,7 +30,34 @@ export default function Vote() {
   };
   const onSelected = () => {
     console.log(sendDatas);
-    alert(sendDatas);
+    const id = sessionStorage.getItem("board_id");
+    const data =
+      user === "front"
+        ? {
+            frameworkValue: sendDatas[0][1],
+            CSSFrameworkValue: sendDatas[1][1],
+            PackageMangerValue: sendDatas[2][1],
+            board_id: id,
+          }
+        : {
+            frameworkValue: sendDatas[0][1],
+            DB: sendDatas[1][1],
+            DBTool: sendDatas[2][1],
+            API: sendDatas[3][1],
+            Remote: sendDatas[4][1],
+            Editor: sendDatas[5][1],
+            Clouding: sendDatas[6][1],
+            board_id: id,
+          };
+    api
+      .post(`/vote/${user}`, data)
+      .then((res) => {
+        console.log(res);
+        navigate(`/team/${id}`);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
   const OptionTitle = ({ title }) => {
     return <div className="m-4 font-extrabold mt-20">{title}</div>;
@@ -48,7 +76,7 @@ export default function Vote() {
 
   return (
     <div>
-      <img className="mt-10" src="images/logo.png" alt="none" />
+      <img className="mt-10" src="/images/logo.png" alt="none" />
       <div className="text-primary flex justify-center items-center text-4xl flex-col bg-gray rounded-3xl p-10 my-10">
         {title}
         {datas.map((data, index) => {

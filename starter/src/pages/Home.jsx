@@ -6,16 +6,18 @@ import { Link } from 'react-router-dom';
 
 export default function Home() {
   const [data, setData] = useState([]);
-  const [filtered, setFiltered ] = useState();
-  const handleSearch = (e) => {
-    const word = e.target.value;
-    data.filter((element) => {
-        if(!element.board_name || !word ){
-            return null;
-        }
-        setFiltered(element.board_name.startsWith(word));
-    } )
-  }
+  const [filtered, setFiltered] = useState([]);
+  const [searchValue, setSearchValue] = useState("");
+
+  const handleSearch = async () => {
+    try {
+      const response = await api.get(`/board/search?name=${searchValue}`);
+      setFiltered(response.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   useEffect(() => {
     api.get('/board')
       .then((response) => {
@@ -25,6 +27,16 @@ export default function Home() {
         console.log(err);
       });
   }, []);
+
+  const handleInputChange = (e) => {
+    setSearchValue(e.target.value);
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      handleSearch();
+    }
+  };
 
   return (
     <div className="container">
@@ -37,7 +49,12 @@ export default function Home() {
             <div className="search-icon">
               <AiOutlineSearch className="text-white" />
             </div>
-            <input type="text" onChange={(e) => handleSearch(e.target.value)} placeholder="팀 이름을 입력해주세요." />
+            <input
+              type="text"
+              onChange={handleInputChange}
+              onKeyPress={handleKeyPress}
+              placeholder="팀 이름을 입력해주세요."
+            />
           </div>
         </div>
       </div>
@@ -105,7 +122,7 @@ export default function Home() {
 
           .grid {
             color: white;
-            background-color: #303D2F;
+            background-color: #2A2A2A;
             border-radius: 10px;
             padding: 30px;
             border: 3px solid #14AE81;
@@ -114,38 +131,31 @@ export default function Home() {
             height: 200px;
           }
           
-        .grid h3{
+          .grid h3{
             font-size: 25px;
             font-weight: 700;
-        }
+          }
 
-        .grid p{
+          .grid p{
             font-size: 17px;
             font-weight: 400;
             color: #B4B1B1;
-        }
+          }
+
+          .grid:hover{
+            background-color: #303D2F;
+          }
         `}
       </style>
 
       <div className="grid-container">
-        
-        {filtered ?  filtered.map((item,index) => (
-            <Link to={`/signup/${item.id}`}>
-            <div className="grid" key={index}>
-            <h3>{item.board_name}</h3>
-            <p>{item.explanation}</p>
-          </div>
-        </Link>
-        )
-            
-        )
-         : data.map((item, index) => (
-        <Link to={`/signup/${item.id}`}>
-            <div className="grid" key={index}>
-            <h3>{item.board_name}</h3>
-            <p>{item.explanation}</p>
-          </div>
-        </Link>
+        {(filtered.length > 0 ? filtered : data).map((item, index) => (
+          <Link to={`/signup/${item.id}`} key={index}>
+            <div className="grid">
+              <h3>{item.board_name}</h3>
+              <p>{item.explanation}</p>
+            </div>
+          </Link>
         ))}
       </div>
     </div>
