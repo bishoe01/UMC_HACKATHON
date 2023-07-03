@@ -9,6 +9,7 @@ import Register from "./pages/Register";
 import Main from "./pages/Main";
 import Vote from "./pages/Vote";
 import TeamPage from "./pages/TeamPage";
+import SignUp from "./pages/SignUp";
 
 const router = createBrowserRouter([
   {
@@ -23,6 +24,7 @@ const router = createBrowserRouter([
       { path: "/home", element: <Home /> },
       { path: "/vote", element: <Vote /> },
       { path: "/team/:team", element: <TeamPage /> },
+      { path: "/signup/:id", element: <SignUp /> },
     ],
   },
 ]);
