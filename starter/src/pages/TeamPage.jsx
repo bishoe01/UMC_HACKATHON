@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import api from "../apis/axios";
+import { JWT } from "../apis/token";
 
 import { Link } from "react-router-dom";
 
@@ -22,16 +24,39 @@ export default function TeamPage() {
     DBtool: ["MySQL Workbench", "MongoDB Compass", "pgAdmin", "Redis Desktop Manager", "DBeaver"],
     Repository: ["Github", "Gitlab", "Bitbucket", "AWS CodeCommit", "Azure Repos"],
   });
-  
+  useEffect(() => {
+    // api
+    //   .get(`/vote`, {
+    //     body: {
+    //       board_id: team,
+    //     },
+    //     headers: {
+    //       "x-access-token": JWT,
+    //     },
+    //   })
+    //   .then((res) => {
+    //     console.log(res);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
+    api
+      .get("/board")
+      .then((response) => {
+        // setData(response.data);
+        console.log(response.data.filter((id) => console.log(id.id === 3)));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   const [user, setUser] = useState(["kim", "lee", "park", "choi", "jung"]);
 
   return (
     <div className="mx-auto flex flex-col bg-gray w-[85%] h-[1200px] rounded-xl mt-10 gap-10 py-5">
       <div className="flex justify-between items-center w-full px-4 ">
-<Link to='/'>
-                    <img className='w-[200px]' src="/images/logo.png" alt="" /></Link>
-
+        <img className="w-[200px]" src="/images/logo.png" alt="" />
         <div className="flex items-center text-white p-2 rounded-xl gap-2 px-8 self-end">
           <img className="w-[35px]" src={`/images/Kakao.png`} alt="" />
           {user.map((user, index) => {
@@ -86,8 +111,7 @@ export default function TeamPage() {
           })}
         </div>
       </div>
-<button className='bg-white p-4 text-xl font-bold w-1/3 rounded-xl self-center bg-gradient-to-r  from-[#41FF76] to-[#94FF41] '>BackEnd 결과 보기</button>
-
+      <button className="bg-white p-4 text-xl font-bold w-1/3 rounded-xl bg-gradient-to-r  from-[#41FF76] to-[#94FF41] ">BackEnd 결과 보기</button>
     </div>
   );
 }
