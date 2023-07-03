@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import api from "../apis/axios";
+import { useNavigate } from "react-router-dom";
 
 export default function Vote() {
   const frontDatas = [
@@ -16,17 +17,10 @@ export default function Vote() {
     ["Editor", ["intelliJ", "vscode", "eclipse", "기타"]],
     ["Clouding", ["aws", "googleCloud", "naverCloud", "기타"]],
   ];
-  const [user, setUser] = useState("");
-  useEffect(() => {
-    api
-      .get("/user/part")
-      .then((res) => console.log(res))
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
-  const title = user === "frontend" ? "FrontEnd" : "BackEnd";
-  const datas = user === "frontend" ? frontDatas : backDatas;
+  const user = sessionStorage.getItem("part");
+  const title = user === "front" ? "FrontEnd" : "BackEnd";
+  const datas = user === "front" ? frontDatas : backDatas;
+  const navigate = useNavigate();
   const sendDatas = [];
   for (let i = 0; i < datas.length; i++) {
     sendDatas.push([datas[i][0], ""]);
@@ -35,8 +29,8 @@ export default function Vote() {
     sendDatas.filter((name) => name[0] === e.target.name)[0][1] = e.target.id.includes("기타") ? "기타" : e.target.id;
   };
   const onSelected = () => {
-    console.log(sendDatas);
-    alert(sendDatas);
+    const id = sessionStorage.getItem("board_id");
+    navigate(`/team/${id}`);
   };
   const OptionTitle = ({ title }) => {
     return <div className="m-4 font-extrabold mt-20">{title}</div>;
@@ -53,7 +47,7 @@ export default function Vote() {
     );
   };
 
-  return  (
+  return (
     <div>
       <img className="mt-10" src="/images/logo.png" alt="none" />
       <div className="text-primary flex justify-center items-center text-4xl flex-col bg-gray rounded-3xl p-10 my-10">
@@ -73,12 +67,12 @@ export default function Vote() {
                 </div>
               </div>
             </div>
-          </div>
-        );
-      })}
-      <button className="text-2xl text-black font-extrabold  mt-20 rounded-xl px-10 py-5 bg-gradient-to-r  from-[#41FF76] to-[#94FF41]" onClick={onSelected}>
-        선택 완료
-      </button>
+          );
+        })}
+        <button className="text-2xl text-black font-extrabold  mt-20 rounded-3xl px-10 py-5 bg-gradient-to-r  from-[#41FF76] to-[#94FF41]" onClick={onSelected}>
+          선택 완료
+        </button>
+      </div>
     </div>
   );
 }

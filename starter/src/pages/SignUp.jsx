@@ -11,7 +11,7 @@ export default function SignUp({}) {
   const navigate = useNavigate();
   const onSelected = () => {
     api
-      .post({
+      .post("/user/signup", {
         name: name,
         password: pw,
         github_id: git,
@@ -20,8 +20,10 @@ export default function SignUp({}) {
       })
       .then((res) => {
         console.log(res);
+        sessionStorage.setItem("part", part);
+        sessionStorage.setItem("board_id", params.id);
         alert("등록 완료!");
-        navigate("/vote");
+        navigate(`/vote/${part}`);
       })
       .catch((err) => {
         console.log(err);
@@ -35,7 +37,6 @@ export default function SignUp({}) {
     <div>
       <img className="mt-10" src="/images/logo.png" alt="none" />
       <div className="text-primary flex justify-center items-center text-4xl flex-col bg-gray rounded-3xl p-10 my-10">
-        제목 넣으면 됨
         <div className="w-2/3">
           <InputTitle title="이름" />
           <div className="border-2 border-lgray rounded-3xl bg-input text-lgray ">
