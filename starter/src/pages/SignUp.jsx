@@ -92,7 +92,7 @@ export default function SignUp({}) {
               <div className="mx-3 flex">
                 <select className="bg-input text-xl" onChange={(e) => setPart(e.target.value)}>
                   <option id="front">front</option>
-                  <option id="back">back</option>
+                  <option id="backend">back</option>
                 </select>
               </div>
             </div>

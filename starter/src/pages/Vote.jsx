@@ -29,8 +29,35 @@ export default function Vote() {
     sendDatas.filter((name) => name[0] === e.target.name)[0][1] = e.target.id.includes("기타") ? "기타" : e.target.id;
   };
   const onSelected = () => {
+    console.log(sendDatas);
     const id = sessionStorage.getItem("board_id");
-    navigate(`/team/${id}`);
+    const data =
+      user === "front"
+        ? {
+            frameworkValue: sendDatas[0][1],
+            CSSFrameworkValue: sendDatas[1][1],
+            PackageMangerValue: sendDatas[2][1],
+            board_id: id,
+          }
+        : {
+            frameworkValue: sendDatas[0][1],
+            DB: sendDatas[1][1],
+            DBTool: sendDatas[2][1],
+            API: sendDatas[3][1],
+            Remote: sendDatas[4][1],
+            Editor: sendDatas[5][1],
+            Clouding: sendDatas[6][1],
+            board_id: id,
+          };
+    api
+      .post(`/vote/${user}`, data)
+      .then((res) => {
+        console.log(res);
+        navigate(`/team/${id}`);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
   const OptionTitle = ({ title }) => {
     return <div className="m-4 font-extrabold mt-20">{title}</div>;
