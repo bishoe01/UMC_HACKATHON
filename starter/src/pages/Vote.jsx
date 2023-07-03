@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+import api from "../apis/axios";
 
 export default function Vote() {
   const frontDatas = [
