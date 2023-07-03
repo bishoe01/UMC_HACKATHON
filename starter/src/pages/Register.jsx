@@ -1,19 +1,24 @@
 import './css/Register.css'
 import styled from 'styled-components';
 import { useState } from 'react';
-
+import api from "../apis/axios"
+import axios from '../apis/axios';
+import { Link } from 'react-router-dom';
+import TeamPage from './TeamPage';
 
 const BgDiv = styled.div`
-
+    border-radius: 50px;
     background-color: #2A2A2A;
     width: 700px;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 200px;
+    margin-top: 30px;
+    margin-bottom: 100px;
     justify-content : center;
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 1250px;
 
 `
 const Label = styled.h1`
@@ -41,6 +46,7 @@ const InputDiv = styled.div`
 `
 const Button = styled.button`
     margin-top: 30px;
+    margin-bottom: 50px;
     width: 200px;
     color: black;
     height: 65px;
@@ -59,6 +65,22 @@ const Register = () => {
         'git': '',
         'kakao':''
     })
+
+    const submitRegister = () => {
+        axios.post(
+            '/board',
+             {"title": teamInfo.name, "content": teamInfo.desc, "password": teamInfo.password, "link": [{"linkName": "notion", "link": teamInfo.notion},{"linkName": "slack", "link": teamInfo.slack}, {"linkName": "discord", "link": teamInfo.discord}, {"linkName": "git", "link":teamInfo.git}, {"linkName": "kakao","link": teamInfo.kakao}]},
+            {}
+        ).then((res)=>{
+            console.log(res);
+            
+
+        })
+        .catch((err) =>{
+            console.log(err);
+        })
+    }
+
     const handleChange = (e) => {
         const id = e.target.id;
         id
@@ -87,7 +109,9 @@ const Register = () => {
                     </InputDiv>
                 )
             })}
-                <Button className='bg-gradient-to-r  from-[#41FF76] to-[#94FF41]'>선택 완료</Button>
+           <Link to="/team/:team">
+                <Button className='bg-gradient-to-r  from-[#41FF76] to-[#94FF41]' onClick={submitRegister}>선택 완료</Button>
+            </Link>
             </BgDiv>
         </div>
     )
