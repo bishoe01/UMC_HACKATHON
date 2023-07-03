@@ -7,6 +7,7 @@ import Home from "./pages/Home";
 import Profile from "./pages/Profile";
 import Main from "./pages/Main";
 import Vote from "./pages/Vote";
+import TeamPage from "./pages/TeamPage";
 
 
 const router = createBrowserRouter([
@@ -20,6 +21,7 @@ const router = createBrowserRouter([
       { path: "/profile", element: <Profile /> },
       { path: "/home", element: <Home /> },
       { path: "/vote", element: <Vote /> },
+      { path: "/team/:team", element: <TeamPage /> },
 
     ],
   },
