@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import api from "../apis/axios";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 export default function SignUp({}) {
   const [name, setName] = useState("");
@@ -8,6 +8,7 @@ export default function SignUp({}) {
   const [git, setGit] = useState("");
   const [part, setPart] = useState("front");
   const params = useParams();
+  const navigate = useNavigate();
   const onSelected = () => {
     api
       .post({
@@ -19,6 +20,8 @@ export default function SignUp({}) {
       })
       .then((res) => {
         console.log(res);
+        alert("등록 완료!");
+        navigate("/vote");
       })
       .catch((err) => {
         console.log(err);
