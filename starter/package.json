@@ -9,9 +9,14 @@
     "axios": "^1.4.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+<<<<<<< HEAD
+    "react-hook-form": "^7.45.1",
+=======
+>>>>>>> d573039d296feba4df88bdac48c0e46afa1198c2
     "react-icons": "^4.10.1",
     "react-router-dom": "^6.14.1",
     "react-scripts": "5.0.1",
+    "styled-components": "^6.0.2",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
