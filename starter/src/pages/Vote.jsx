@@ -16,17 +16,15 @@ export default function Vote() {
     ["Clouding", ["aws", "googleCloud", "naverCloud", "기타"]],
   ];
 
-  const temp = "Front";
+  const temp = "ㄹ";
   const title = temp === "frontend" ? "FrontEnd" : "BackEnd";
   const datas = temp === "frontend" ? frontDatas : backDatas;
   const sendDatas = [];
   for (let i = 0; i < datas.length; i++) {
     sendDatas.push([datas[i][0], ""]);
   }
-  //   console.log(sendDatas);
   const onClick = (e) => {
-    sendDatas.filter((name) => name[0] === e.target.name)[0][1] = e.target.id;
-    // console.log(sendDatas);
+    sendDatas.filter((name) => name[0] === e.target.name)[0][1] = e.target.id.includes("기타") ? "기타" : e.target.id;
   };
   const onSelected = () => {
     console.log(sendDatas);
@@ -36,10 +34,11 @@ export default function Vote() {
     return <div className="m-4 font-extrabold mt-20">{title}</div>;
   };
   const SelectOption = ({ option, title }) => {
+    const options = option === "기타" ? `${title}기타` : option;
     return (
       <div className="mx-3 flex items-center">
-        <input type="radio" onClick={onClick} id={option} name={title} />
-        <label htmlFor={option} className="text-2xl	mx-2 cursor-pointer">
+        <input type="radio" onClick={onClick} id={options} name={title} />
+        <label htmlFor={options} className="text-2xl	mx-2 cursor-pointer">
           {option}
         </label>
       </div>

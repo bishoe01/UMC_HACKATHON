@@ -5,10 +5,10 @@ import App from "./App";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
+import Register from "./pages/Register";
 import Main from "./pages/Main";
 import Vote from "./pages/Vote";
 import TeamPage from "./pages/TeamPage";
-
 
 const router = createBrowserRouter([
   {
@@ -19,10 +19,10 @@ const router = createBrowserRouter([
       { index: true, path: "/", element: <Main /> },
       { path: "/about", element: <h1>About</h1> },
       { path: "/profile", element: <Profile /> },
+      { path: "/register", element: <Register /> },
       { path: "/home", element: <Home /> },
       { path: "/vote", element: <Vote /> },
       { path: "/team/:team", element: <TeamPage /> },
-
     ],
   },
 ]);
