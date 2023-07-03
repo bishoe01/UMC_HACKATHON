@@ -53,7 +53,7 @@ export default function Vote() {
     );
   };
 
-  return (
+  return  (
     <div>
       <img className="mt-10" src="/images/logo.png" alt="none" />
       <div className="text-primary flex justify-center items-center text-4xl flex-col bg-gray rounded-3xl p-10 my-10">
@@ -73,12 +73,12 @@ export default function Vote() {
                 </div>
               </div>
             </div>
-          );
-        })}
-        <button className="text-2xl text-black font-extrabold  mt-20 rounded-3xl px-10 py-5 bg-gradient-to-r  from-[#41FF76] to-[#94FF41]" onClick={onSelected}>
-          선택 완료
-        </button>
-      </div>
+          </div>
+        );
+      })}
+      <button className="text-2xl text-black font-extrabold  mt-20 rounded-xl px-10 py-5 bg-gradient-to-r  from-[#41FF76] to-[#94FF41]" onClick={onSelected}>
+        선택 완료
+      </button>
     </div>
   );
 }
